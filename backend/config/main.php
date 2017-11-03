@@ -11,6 +11,10 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+    //设置语言
+    'language'=>'zh-CN',
+    //设置时区
+    'timeZone' => 'Asia/Shanghai',
     'modules' => [],
     'components' => [
         'request' => [
@@ -37,14 +41,15 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+//            'suffix'=>'.html',
             'rules' => [
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];
