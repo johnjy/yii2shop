@@ -14,7 +14,7 @@ class Brand extends ActiveRecord
         return [
             'name' => '名称',
             'intro' => '简介',
-            'imgFile' => 'LOGO',
+//            'logo' => 'LOGO',
             'sort' => '排序',
             'status' => '状态',
             'code' => '验证码'
@@ -27,7 +27,8 @@ class Brand extends ActiveRecord
     {
         return [
             [['name', 'intro', 'sort', 'status'], 'required'],
-            ['imgFile', 'file', 'extensions' => ['jpg', 'png', 'gif'], 'skipOnEmpty' => false]
+//            [['logo'], 'string', 'max' => 255],
+//         ['imgFile', 'file', 'extensions' => ['jpg', 'png', 'gif'], 'skipOnEmpty' => false]
 
         ];
     }

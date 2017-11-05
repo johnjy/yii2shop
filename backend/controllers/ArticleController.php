@@ -3,6 +3,7 @@ namespace backend\controllers;
 
 use backend\models\Article;
 use backend\models\ArticleCategory;
+use backend\models\ArticleDetail;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -24,11 +25,16 @@ class ArticleController extends Controller{
     public function actionAdd(){
         $requset=new Request();
         $model=new Article();
+        $modeld=new ArticleDetail();
         if($requset->isPost){
             $model->load($requset->post());
+            $modeld->content=$model->content;
             $model->create_time=time();
-            if($model->validate()){
+            if($model->validate() && $modeld->validate()){
                 $model->save(false);
+                $id=\Yii::$app->db->getLastInsertID();
+                $modeld->article_id=$id;
+                $modeld->save(false);
                 return $this->redirect(['article/index']);
             }else{
                 var_dump($model->getErrors());
@@ -45,6 +51,7 @@ class ArticleController extends Controller{
 
         $requset=new Request();
         $model=new Article();
+//        $modeld=new ArticleDetail();
         $model=Article::findOne(['id'=>$id]);
         if($requset->isPost){
             $model->load($requset->post());
