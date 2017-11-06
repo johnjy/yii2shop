@@ -5,7 +5,7 @@
 $from=\yii\bootstrap\ActiveForm::begin();
 echo $from->field($model,'name')->textInput();
 echo $from->field($model,'intro')->textarea();
-echo $from->field($model,'imgFile')->hiddenInput();
+echo $from->field($model,'logo')->hiddenInput();
 //====================================
 //注册css和js文件
 $this->registerCssFile('@web/webuploader/webuploader.css');
@@ -47,7 +47,6 @@ uploader.on( 'uploadSuccess', function( file ,response) {
     //将图片地址赋值给img
     console.log(file);
     console.log(response);
-
     $("#img").attr('src',response.url);
     //将图片地址写入logo
     $("#brand-logo").val(response.url);

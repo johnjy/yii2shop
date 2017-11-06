@@ -27,7 +27,7 @@ class Brand extends ActiveRecord
     {
         return [
             [['name', 'intro', 'sort', 'status'], 'required'],
-//            [['logo'], 'string', 'max' => 255],
+           [['logo'], 'required'],
 //         ['imgFile', 'file', 'extensions' => ['jpg', 'png', 'gif'], 'skipOnEmpty' => false]
 
         ];

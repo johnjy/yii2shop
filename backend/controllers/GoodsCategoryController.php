@@ -12,8 +12,8 @@ class GoodsCategoryController extends Controller{
         $require=GoodsCategory::find();
         $pages=new Pagination();
         $pages->totalCount=$require->count();
-        $pages->pageSize=2;
-        $lists=$require->limit($pages->limit)->offset($pages->offset)->all();
+        $pages->pageSize=4;
+        $lists=$require->orderBy('tree ASC,lft ASC')->limit($pages->limit)->offset($pages->offset)->all();
         return $this->render('index',['lists'=>$lists,'pages'=>$pages]);
 
     }
@@ -48,12 +48,19 @@ class GoodsCategoryController extends Controller{
         $model->parent_id=0;
         $requset=\Yii::$app->request;
         $model=GoodsCategory::findOne(['id'=>$id]);
+//        $parent_id=$model->parent_id;
         if($requset->isPost){
             $model->load($requset->post());
             if($model->validate()){
                 if($model->parent_id == 0){
-                    //创建跟节点
-                    $model->makeRoot();
+                    //修改跟节点
+                    if($model->getOldAttribute('parent_id') ==0){
+                        $model->save();
+                    }else{
+                        $model->makeRoot();
+                    }
+
+
                     return $this->redirect(['index']);
                 }else{
                     $parent=GoodsCategory::findOne(['id'=>$model->parent_id]);
@@ -72,6 +79,7 @@ class GoodsCategoryController extends Controller{
         $id=$requset->post('id');
         $del=GoodsCategory::findOne(['id'=>$id]);
         //如果存在子分类则无法删除
+//        $del->isLeaf();
         $child=GoodsCategory::findAll(['parent_id'=>$id]);
         if(empty($child)){
            $del->delete();

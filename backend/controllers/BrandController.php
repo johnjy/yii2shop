@@ -53,6 +53,56 @@ class BrandController extends Controller{
             return $this->render('add',['model'=>$model]);
         }
     }
+
+    //处理ajax图片上传
+    public function actionUpload()
+    {
+
+        if (\Yii::$app->request->isPost) {
+
+            $imgFile = UploadedFile::getInstanceByName('file');
+
+            //判断是否有文件上传
+            if ($imgFile) {
+                $fileName = '/upload/' . uniqid() . '.' . $imgFile->extension;
+                $imgFile->saveAs(\Yii::getAlias('@webroot') . $fileName, 0);
+
+//                return Json::encode(['url'=>$fileName]);
+//            // 需要填写的 Access Key 和 Secret Key
+                $accessKey ="1Hv2YibPiCRPjmkICHDcLVr6anGHm6BzWmKYvtkA";
+                $secretKey = "yjGoA3qa3hSRlOxtKDl-TXuPBOpWToY2K6aLYeUt";
+                $bucket = "yii2shop";
+                // 构建鉴权对象
+                $auth = new Auth($accessKey, $secretKey);
+                // 生成上传 Token
+                $token = $auth->uploadToken($bucket);
+                // 要上传文件的本地路径
+                $filePath = \Yii::getAlias('@webroot').$fileName;
+                // 上传到七牛后保存的文件名
+                $key = $fileName;
+                $domian='oyxe9r27m.bkt.clouddn.com';
+                // 初始化 UploadManager 对象并进行文件的上传。
+                $uploadMgr = new UploadManager();
+                // 调用 UploadManager 的 putFile 方法进行文件的上传。
+                list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
+//                echo "\n====> putFile result: \n";
+                if ($err !== null) {
+//                    var_dump($err);
+                    return Json::encode(['error'=>$err]);
+                } else {
+//                    var_dump($ret);
+
+                    return Json::encode(['url'=>'http://'.$domian.'/'.$fileName]);
+
+                }
+                // -------------------------------------
+
+            }
+        }
+    }
+
+
+
     public function actions()
     {
         return [
@@ -93,51 +143,6 @@ class BrandController extends Controller{
         $del->status=-1;
         $del->save(false);
         return 1;
-    }
-    //处理ajax图片上传
-    public function actionUpload()
-    {
-
-        if (\Yii::$app->request->isPost) {
-
-            $imgFile = UploadedFile::getInstanceByName('file');
-
-            //判断是否有文件上传
-            if ($imgFile) {
-                $fileName = '/upload/' . uniqid() . '.' . $imgFile->extension;
-                $imgFile->saveAs(\Yii::getAlias('@webroot') . $fileName, 0);
-
-//                return Json::encode(['url'=>$fileName]);
-//            // 需要填写的 Access Key 和 Secret Key
-                $accessKey ="1Hv2YibPiCRPjmkICHDcLVr6anGHm6BzWmKYvtkA";
-                $secretKey = "yjGoA3qa3hSRlOxtKDl-TXuPBOpWToY2K6aLYeUt";
-                $bucket = "yii2shop";
-                // 构建鉴权对象
-                $auth = new Auth($accessKey, $secretKey);
-                // 生成上传 Token
-                $token = $auth->uploadToken($bucket);
-                // 要上传文件的本地路径
-                $filePath = \Yii::getAlias('@webroot').$fileName;
-                // 上传到七牛后保存的文件名
-                $key = $fileName;
-                $domian='oyxe9r27m.bkt.clouddn.com';
-                // 初始化 UploadManager 对象并进行文件的上传。
-                $uploadMgr = new UploadManager();
-                // 调用 UploadManager 的 putFile 方法进行文件的上传。
-                list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
-//                echo "\n====> putFile result: \n";
-                if ($err !== null) {
-//                    var_dump($err);
-                    return Json::encode(['error'=>$err]);
-                } else {
-//                    var_dump($ret);
-                    return Json::encode(['url'=>'http://'.$domian.'/'.$fileName]);
-
-                }
-               // -------------------------------------
-
-            }
-        }
     }
 
 }

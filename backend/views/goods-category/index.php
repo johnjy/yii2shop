@@ -6,8 +6,9 @@
     </tr>
     <?php foreach($lists as $list):?>
         <tr>
+
             <td><?=$list->id?></td>
-            <td><?=$list->name?></td>
+            <td> <?=str_repeat('----',$list->depth).$list->name ?></td>
             <td>
                 <?= \yii\bootstrap\Html::a('修改',['goods-category/edit-category','id'=>$list->id],['class'=>'btn btn-info'])?>
                 <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-info'])?>
