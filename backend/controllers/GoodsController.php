@@ -4,6 +4,7 @@ namespace backend\controllers;
 use backend\models\Brand;
 use backend\models\Goods;
 use backend\models\GoodsDayCount;
+use backend\models\GoodsGallery;
 use backend\models\GoodsIntro;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
@@ -18,12 +19,30 @@ class GoodsController extends Controller{
     //商品列表
     public function actionIndex(){
         $model=new Goods();
+        $requset=new Request();
 
-        $requset=Goods::find();
+
+        $requre=Goods::find();
         $pages=new Pagination();
-        $pages->totalCount=$requset->count();
+        $pages->totalCount=$requre->count();
         $pages->pageSize=3;
-        $lists=$requset->where(['status'=>1])->limit($pages->limit)->offset($pages->offset)->all();
+        //接收搜索数据
+        $keyword='';
+        $search=$requset->get();
+
+//
+        //若存在搜索数据取出keyword
+      if(array_key_exists('Goods',$search)){
+
+//          echo 1;die;
+          $keyword=$search['Goods']['keyword'];
+          var_dump($search);
+          $lists=Goods::find()->where(['like','name',$keyword])->andWhere(['status'=>1])->limit($pages->limit)->offset($pages->offset)->all();
+
+      }else{
+          //不存在
+            $lists=$requre->where(['status'=>1])->limit($pages->limit)->offset($pages->offset)->all();
+        }
         return $this->render('index',['lists'=>$lists,'pages'=>$pages,'model'=>$model]);
 
     }
@@ -151,10 +170,36 @@ class GoodsController extends Controller{
         return 1;
 
     }
-//    //商品搜索
-//    public function actionSearch(){
-//
-//
-//    }
+//    //商品相册列表
+    public function actionGallery($id){
+        $photoes=GoodsGallery::findAll(['goods_id'=>$id]);
+        return $this->render('gallery',['photoes'=>$photoes,'id'=>$id]);
+
+
+    }
+    public function actionGalleryAdd($id){
+        $model=new GoodsGallery();
+        $rquest=new Request();
+        if($rquest->isPost){
+            $model->load($rquest->post());
+            $model->goods_id=$id;
+            $model->save(false);
+            $photoes=GoodsGallery::findAll(['goods_id'=>$id]);
+            return $this->render('gallery',['photoes'=>$photoes,'id'=>$id]);
+        }else{
+            return $this->render('photo-add',['model'=>$model]);
+        }
+
+    }
+    public function actionGalleryDel(){
+        $rquest=new Request();
+        $id=$rquest->post('id');
+//        var_dump($id);die;
+        $del=GoodsGallery::findOne(['id'=>$id]);
+
+        $del->save();
+        return 1;
+
+    }
 
 }
