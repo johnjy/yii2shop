@@ -1,5 +1,5 @@
 <?php
-$form=\yii\bootstrap\ActiveForm::begin(['layout'=>'inline','method'=>'get']);
+$form=\yii\bootstrap\ActiveForm::begin(['layout'=>'inline','method'=>'get','action'=>['index']]);
 echo $form->field($model,'keyword')->textInput(['style' => 'width : 200px','placeholder'=>'请输入关键字']);
 
 echo \yii\bootstrap\Html::submitButton('搜索',['class'=>'btn btn-info']);

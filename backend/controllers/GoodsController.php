@@ -36,7 +36,7 @@ class GoodsController extends Controller{
 
 //          echo 1;die;
           $keyword=$search['Goods']['keyword'];
-          var_dump($search);
+//          var_dump($search);
           $lists=Goods::find()->where(['like','name',$keyword])->andWhere(['status'=>1])->limit($pages->limit)->offset($pages->offset)->all();
 
       }else{
@@ -67,7 +67,7 @@ class GoodsController extends Controller{
 
             if($model->validate() && $intro->validate()){
 
-                $sum=GoodsDayCount::find(['day'=>date('Y-m-d',time())])->one();
+                $sum=GoodsDayCount::find()->where(['day'=>date('Y-m-d',time())])->one();
 //               var_dump($sum);die;
                 if(!empty($sum)){
                    $sum->count+=1;
@@ -78,11 +78,11 @@ class GoodsController extends Controller{
                     $count->day=date('Y-m-d',time());
                     $count->count=1;
                     $count->save(false);
-                    $model->sn=date('Ymd',time()).'00000';
+                    $model->sn=date('Ymd',time())*100000+1;
                 }
 //                var_dump( $sn);die;
                 //得到当前商品数
-
+//                var_dump($model);die;
                 $model->create_time=time();
                 $model->status=1;
                 $model->save(false);
