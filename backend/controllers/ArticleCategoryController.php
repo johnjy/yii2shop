@@ -5,7 +5,7 @@ use backend\models\ArticleCategory;
 use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\Request;
-
+use backend\filters\RbacFilter;
 
 class ArticleCategoryController extends Controller{
 
@@ -64,5 +64,14 @@ class ArticleCategoryController extends Controller{
         $del->status=-1;
         $del->save(false);
         return 1;
+    }
+    public function behaviors()
+    {
+        return[
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+
+            ]
+        ];
     }
 }

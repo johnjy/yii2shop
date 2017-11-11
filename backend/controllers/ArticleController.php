@@ -8,6 +8,7 @@ use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Request;
+use backend\filters\RbacFilter;
 
 class ArticleController extends Controller{
 
@@ -76,5 +77,15 @@ class ArticleController extends Controller{
         $del->status=-1;
         $del->save(false);
         return 1;
+    }
+
+    public function behaviors()
+    {
+        return[
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+
+            ]
+        ];
     }
 }

@@ -4,11 +4,14 @@ namespace backend\models;
 use yii\db\ActiveRecord;
 
 class EditForm extends ActiveRecord{
+    public $roles;
 
     public function rules()
     {
         return [
-          [['username','email','status'],'required']
+          [['username','status'],'required'],
+            ['email','email'],
+            ['roles','required'],
         ];
 
     }

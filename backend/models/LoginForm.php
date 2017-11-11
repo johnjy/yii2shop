@@ -21,7 +21,12 @@ class LoginForm extends Model{
         if($admin){
             if(\Yii::$app->security->validatePassword($this->password,$admin->password_hash)){
 
-                \Yii::$app->user->login($admin);
+                \Yii::$app->user->login($admin,3600*24);
+                if ($this->validate()) {
+                    return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+                } else {
+                    return false;
+                }
 
             }else{
                 $this->addError('password','密码错误');
@@ -31,4 +36,6 @@ class LoginForm extends Model{
         }
         return false;
     }
+
+
 }

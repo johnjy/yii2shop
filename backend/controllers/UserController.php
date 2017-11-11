@@ -1,12 +1,13 @@
 <?php
 namespace backend\controllers;
 
-
+use backend\filters\RbacFilter;
 use backend\models\EditForm;
 use backend\models\PwdForm;
 use backend\models\User;
 use common\models\LoginForm;
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Request;
 
@@ -24,6 +25,7 @@ class UserController extends Controller{
                     $models=User::findOne(['username'=>$model->username]);
                     $models->last_login_time=time();
                     $models->last_login_ip=\Yii::$app->request->userIP;
+//                    $models->auth_key=Yii::$app->security->generateRandomString();
                     $models->save(false);
                     \Yii::$app->session->setFlash('success','登录成功');
                     return $this->redirect(['user/index']);
@@ -32,6 +34,7 @@ class UserController extends Controller{
         }
         return $this->render('login',['model'=>$model]);
     }
+    //注销
     public function actionLogout(){
 //        Yii::$app->user->logout();
         \Yii::$app->user->logout();
@@ -44,7 +47,7 @@ class UserController extends Controller{
         //分页
         $pages=new Pagination();
         $pages->totalCount=User::find()->count();
-        $pages->pageSize=1;
+        $pages->pageSize=2;
         $lists=User::find()->limit($pages->limit)->offset($pages->offset)->all();
         return $this->render('index',['lists'=>$lists,'pages'=>$pages]);
     }
@@ -53,6 +56,12 @@ class UserController extends Controller{
     public function actionAdd(){
         $model=new User();
         $requset=new Request();
+        //取出角色列表
+        $auth=\Yii::$app->authManager;
+        $roles=$auth->getRoles();
+        $roles=ArrayHelper::map($roles,'name','description');
+
+
         if($requset->isPost){
             $model->load($requset->post());
             if($model->validate()){
@@ -62,6 +71,14 @@ class UserController extends Controller{
                     $model->password_hash=\Yii::$app->security->generatePasswordHash($model->password);
 
                     $model->save();
+                    $id=$model->getId();
+//                    var_dump($id);die;
+                    //遍历出角色并赋予
+                    foreach($model->roles as $roleName){
+                        $role=$auth->getRole($roleName);
+                        $auth->assign($role,$id);
+
+                    }
 
                     \Yii::$app->session->setFlash('success','添加成功');
                     return $this->redirect('index');
@@ -70,7 +87,7 @@ class UserController extends Controller{
 
             }
         }
-        return $this->render('add',['model'=>$model]);
+        return $this->render('add',['model'=>$model,'roles'=>$roles]);
     }
 
     //修改管理员
@@ -80,6 +97,11 @@ class UserController extends Controller{
         $requset=new Request();
         //查询id得到修改数据
         $model=User::findOne(['id'=>$id]);
+        //取出角色列表
+        $auth=\Yii::$app->authManager;
+        $roles=$auth->getRoles();
+        $roles=ArrayHelper::map($roles,'name','description');
+
         $password=$model->password_hash;
         if($requset->isPost){
             $model->load($requset->post());
@@ -91,13 +113,31 @@ class UserController extends Controller{
                     //验证数据
                    if($model->check()){
                        $model->save();
+
+                       $id=$model->getId();
+                        //删除旧角色
+                         $auth->revokeAll($id);
+//
+                       //遍历出角色并赋予
+                       foreach($model->roles as $roleName){
+                           $role=$auth->getRole($roleName);
+                           $auth->assign($role,$id);
+
+                       }
+
                        \Yii::$app->session->setFlash('success','修改成功');
                        return $this->redirect('index');
                    }
             }
 
         }
-        return $this->render('edit',['model'=>$model]);
+        //得到已有的角色
+        $role=ArrayHelper::map($auth->getRolesByUser($model->id),'name','name');
+
+
+        $model->roles=$role;
+//        $model->description=$roles->description;
+        return $this->render('edit',['model'=>$model,'roles'=>$roles]);
 
     }
     //修改管理员密码
@@ -127,6 +167,7 @@ class UserController extends Controller{
                 }
             }
         }
+
         return $this->render('pwd',['model'=>$model]);
     }
 
@@ -138,5 +179,14 @@ class UserController extends Controller{
         $del->delete();
         return 1;
     }
-
+    public function behaviors()
+    {
+        return[
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+              'except'=>["login",'logout'],
+//
+            ]
+        ];
+    }
 }

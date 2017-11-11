@@ -1,3 +1,4 @@
+<h2>商品分类列表</h2>
 <table class="table table-bordered">
     <tr>
         <th>ID</th>
@@ -15,7 +16,6 @@
             </td>
         </tr>
     <?php endforeach;?>
-    <?=\yii\bootstrap\Html::a('添加',['goods-category/add-category'],['class'=>'btn btn-info'])?>
 </table>
 <?php
 $url = \yii\helpers\Url::to(['goods-category/del-category']);

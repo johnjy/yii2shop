@@ -29,39 +29,41 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => '洛水之南',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => '首页', 'url' => ['/user/index']],
-        ['label' => '管理员',
-            'items'=>[
-                [
-                    'label'=>'管理员列表',
-                    'url'=>['/user/index']
-                ],
-                [
-                    'label'=>'添加管理员',
-                    'url'=>['/user/add']
-                ],
-
-                [
-                    'label'=>'修改密码',
-                    'url'=>['/user/pwd']
-                ],
-            ]
-        ],
-    ];
+    //菜单配置
+//    $menuItems = [
+//        ['label' => '首页', 'url' => ['/user/index']],
+//        ['label' => '管理员',
+//            'items'=>[
+//                [
+//                    'label'=>'管理员列表',
+//                    'url'=>['/user/index']
+//                ],
+//                [
+//                    'label'=>'添加管理员',
+//                    'url'=>['/user/add']
+//                ],
+//
+//                [
+//                    'label'=>'修改密码',
+//                    'url'=>['/user/pwd']
+//                ],
+//            ]
+//        ],
+//    ];
+    //菜单配置
     if (Yii::$app->user->isGuest) {
-//        $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
+        $menuItems=[];
         $menuItems[] = ['label' => '登录', 'url' => ['/user/login']];
     } else {
+        $menuItems=Yii::$app->user->identity->menus;
         $menuItems[] = '<li>'
             . Html::beginForm(['/user/logout'], 'post')
-//            . Html::beginForm(['/user/logout'], 'post')
             . Html::submitButton(
                 '注销 (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']

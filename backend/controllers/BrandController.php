@@ -9,6 +9,7 @@ use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Request;
 use yii\web\UploadedFile;
+use backend\filters\RbacFilter;
 //-------------------------------------
 // 引入鉴权类
 use Qiniu\Auth;
@@ -39,10 +40,7 @@ class BrandController extends Controller{
             $model->load($request->post());
 //            $model->imgFile=UploadedFile::getInstance($model,'imgFile');
             if($model->validate()){
-//                $ext=$model->imgFile->extension;
-//                $file='/upload/'.uniqid().'.'.$ext;
-//                $model->imgFile->saveAs(\Yii::getAlias('@webroot').$file,0);
-//                $model->logo=$file;
+
                 $model->save();
                 \Yii::$app->session->setFlash('success','添加成功');
                 return $this->redirect(['brand/index']);
@@ -121,10 +119,7 @@ class BrandController extends Controller{
             $model->load($request->post());
 //            $model->imgFile=UploadedFile::getInstance($model,'imgFile');
             if($model->validate()){
-//                $ext=$model->imgFile->extension;
-//                $file='/upload/'.uniqid().'.'.$ext;
-//                $model->imgFile->saveAs(\Yii::getAlias('@webroot').$file,0);
-//                $model->logo=$file;
+
                 $model->save();
                 \Yii::$app->session->setFlash('success','修改成功');
                 return $this->redirect(['brand/index']);
@@ -144,5 +139,13 @@ class BrandController extends Controller{
         $del->save(false);
         return 1;
     }
+    public function behaviors()
+    {
+        return[
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
 
+            ]
+        ];
+    }
 }

@@ -12,6 +12,7 @@ use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Request;
 use yii\web\UploadedFile;
+use backend\filters\RbacFilter;
 
 class GoodsController extends Controller{
     public $enableCsrfValidation=false;
@@ -200,6 +201,15 @@ class GoodsController extends Controller{
         $del->save();
         return 1;
 
+    }
+    public function behaviors()
+    {
+        return[
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+
+            ]
+        ];
     }
 
 }

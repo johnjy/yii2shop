@@ -1,3 +1,4 @@
+<h2>品牌列表</h2>
 <table class="table table-bordered">
     <tr>
         <th>ID</th>
@@ -16,7 +17,6 @@
             </td>
         </tr>
     <?php endforeach;?>
-    <?=\yii\bootstrap\Html::a('添加',['brand/add'],['class'=>'btn btn-info'])?>
 </table>
 <?php
 

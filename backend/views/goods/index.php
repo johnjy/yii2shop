@@ -1,10 +1,12 @@
+<h2>商品列表</h2>
 <?php
 $form=\yii\bootstrap\ActiveForm::begin(['layout'=>'inline','method'=>'get','action'=>['index']]);
-echo $form->field($model,'keyword')->textInput(['style' => 'width : 200px','placeholder'=>'请输入关键字']);
+echo $form->field($model,'keyword')->textInput(['style' => 'width : 200px','placeholder'=>'请输入商品名称关键字']);
 
 echo \yii\bootstrap\Html::submitButton('搜索',['class'=>'btn btn-info']);
 \yii\bootstrap\ActiveForm::end();
 ?>
+
 <table class="table table-bordered">
     <tr>
         <th>ID</th>
@@ -30,7 +32,6 @@ echo \yii\bootstrap\Html::submitButton('搜索',['class'=>'btn btn-info']);
             </td>
         </tr>
     <?php endforeach;?>
-    <?=\yii\bootstrap\Html::a('添加',['goods/add'],['class'=>'btn btn-info'])?>
 </table>
 <?php
 

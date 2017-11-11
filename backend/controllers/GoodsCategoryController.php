@@ -5,6 +5,7 @@ use backend\models\GoodsCategory;
 use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\Request;
+use backend\filters\RbacFilter;
 
 class GoodsCategoryController extends Controller{
     //列表
@@ -86,5 +87,14 @@ class GoodsCategoryController extends Controller{
             return 1;
         }
 
+    }
+    public function behaviors()
+    {
+        return[
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+
+            ]
+        ];
     }
 }
