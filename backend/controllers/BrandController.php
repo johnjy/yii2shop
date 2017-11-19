@@ -24,7 +24,7 @@ class BrandController extends Controller{
         $pages=new Pagination();
         //统计数据条数
         $pages->totalCount=$require->count();
-        $pages->pageSize=2;
+        $pages->pageSize=4;
         $lists=Brand::find()->where(['status'=>0])->orWhere(['status'=>1])->limit($pages->limit)->offset($pages->offset)->all();
 
 //        var_dump($lists);die;
@@ -101,14 +101,7 @@ class BrandController extends Controller{
 
 
 
-    public function actions()
-    {
-        return [
-            'captcha'=>[
-                'class'=>CaptchaAction::className()
-            ]
-        ];
-    }
+
     //品牌修改
     public function actionEdit($id){
 
@@ -144,7 +137,7 @@ class BrandController extends Controller{
         return[
             'rbac'=>[
                 'class'=>RbacFilter::className(),
-
+                'except'=>['upload'],
             ]
         ];
     }

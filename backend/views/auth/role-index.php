@@ -14,8 +14,10 @@
 
             <td><?=date('Y-m-d H:i:s',$role->createdAt)?></td>
             <td>
-                <?= \yii\bootstrap\Html::a('编辑',['auth/role-edit','name'=>$role->name],['class'=>'btn btn-warning'])?>
-                <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger'])?>
+                <?php if(Yii::$app->user->can('auth/role-edit')){
+                echo \yii\bootstrap\Html::a('编辑',['auth/role-edit','name'=>$role->name],['class'=>'btn btn-warning']);}?>
+                <?php if(Yii::$app->user->can('auth/role-del')){
+                echo \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger']);}?>
             </td>
         </tr>
     <?php endforeach;?>

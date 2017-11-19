@@ -198,7 +198,7 @@ class GoodsController extends Controller{
 //        var_dump($id);die;
         $del=GoodsGallery::findOne(['id'=>$id]);
 
-        $del->save();
+        $del->delete();
         return 1;
 
     }
@@ -207,7 +207,7 @@ class GoodsController extends Controller{
         return[
             'rbac'=>[
                 'class'=>RbacFilter::className(),
-
+                'except'=>['uploads'],
             ]
         ];
     }

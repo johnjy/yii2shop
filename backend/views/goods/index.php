@@ -27,8 +27,10 @@ echo \yii\bootstrap\Html::submitButton('搜索',['class'=>'btn btn-info']);
             <td><?=\yii\bootstrap\Html::img($list->logo,['width'=>50])?></td>
             <td>
                 <?= \yii\bootstrap\Html::a('相册',['goods/gallery','id'=>$list->id],['class'=>'btn btn-info'])?>
-                <?= \yii\bootstrap\Html::a('编辑',['goods/edit','id'=>$list->id],['class'=>'btn btn-warning'])?>
-                <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger'])?>
+                <?php if(Yii::$app->user->can('goods/edit')){
+                     echo \yii\bootstrap\Html::a('编辑',['goods/edit','id'=>$list->id],['class'=>'btn btn-warning']);}?>
+                <?php if(Yii::$app->user->can('goods/del')){
+                     echo \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger']);}?>
             </td>
         </tr>
     <?php endforeach;?>

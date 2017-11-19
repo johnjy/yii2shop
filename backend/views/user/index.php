@@ -18,8 +18,10 @@
         <td><?=date('Y-m-d H:i:s',$list->last_login_time)?></td>
         <td><?=$list->last_login_ip?></td>
         <td>
-            <?= \yii\bootstrap\Html::a('编辑',['user/edit','id'=>$list->id],['class'=>'btn btn-info'])?>
-            <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger'])?>
+            <?php if(Yii::$app->user->can('user/edit')){
+            echo \yii\bootstrap\Html::a('编辑',['user/edit','id'=>$list->id],['class'=>'btn btn-info']);}?>
+            <?php if(Yii::$app->user->can('user/del')){
+            echo \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger']);}?>
         </td>
         </tr>
     <?php endforeach;?>

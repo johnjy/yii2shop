@@ -176,27 +176,5 @@ class AuthController extends Controller{
         ];
     }
 
-    //测试数据
-    public function actionTest(){
 
-        $auth=\Yii::$app->authManager;
-        //创建角色
-//        $role=$auth->createRole('超级管理员');
-//        $auth->add($role);
-
-        //创建权限
-//        $permission=$auth->createPermission('auth/add');
-//        $permission->description='添加用户';
-//        $auth->add($permission);
-
-        //角色分配权限
-        //得到角色
-        $role=$auth->getRole('超级管理员');
-        //得到权限
-        $permission=$auth->getPermission('auth/add');
-        //分配
-//        $auth->addChild($role,$permission);
-        //用户分配角色
-//        $auth->assign($role,5);
-    }
 }

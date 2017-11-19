@@ -14,8 +14,10 @@
             <td><?=$list->intro?></td>
             <td><?=$list->sort?></td>
             <td>
-                <?= \yii\bootstrap\Html::a('修改',['article-category/edit','id'=>$list->id],['class'=>'btn btn-info'])?>
-                <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-info'])?>
+                <?php if(Yii::$app->user->can('article-category/edit')){
+                echo \yii\bootstrap\Html::a('修改',['article-category/edit','id'=>$list->id],['class'=>'btn btn-info']);}?>
+                <?php if(Yii::$app->user->can('article-category/del')){
+                echo \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-info']);}?>
             </td>
         </tr>
     <?php endforeach;?>

@@ -26,8 +26,10 @@ $this->registerJsFile('@web/DataTables/media/js/jquery.dataTables.js',[
             <td><?=$pre->name?></td>
             <td><?=$pre->description?></td>
             <td>
-                <?= \yii\bootstrap\Html::a('编辑',['auth/pre-edit','name'=>$pre->name],['class'=>'btn btn-warning'])?>
-                <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger'])?>
+                <?php if(Yii::$app->user->can('auth/pre-edit')){
+                echo \yii\bootstrap\Html::a('编辑',['auth/pre-edit','name'=>$pre->name],['class'=>'btn btn-warning']);}?>
+                <?php if(Yii::$app->user->can('auth/pre-del')){
+                echo \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger']);}?>
             </td>
         </tr>
 

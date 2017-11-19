@@ -117,8 +117,8 @@ echo $from->field($model,'stock')->textInput();
 echo $from->field($model,'is_on_sale',['inline'=>1])->radioList([0=>'下架',1=>'在售']);
 echo $from->field($model,'sort')->textInput();
 echo $from->field($intro,'content')->widget('kucha\ueditor\UEditor');
-echo $from->field($model,'code')->widget(\yii\captcha\Captcha::className(),['template'=>
-    '<div class="row"><div class="col-lg-1">{input}</div><div class="col-lg-1">{image}</div></div>']);
+//echo $from->field($model,'code')->widget(\yii\captcha\Captcha::className(),['template'=>
+//    '<div class="row"><div class="col-lg-1">{input}</div><div class="col-lg-1">{image}</div></div>']);
 
 echo \yii\bootstrap\Html::submitButton('提交',['class'=>'btn btn-info']);
 \yii\bootstrap\ActiveForm::end();

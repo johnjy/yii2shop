@@ -4,7 +4,7 @@ namespace backend\models;
 use yii\db\ActiveRecord;
 
 class Goods extends ActiveRecord{
-    public $code;
+//    public $code;
     public $keyword;
 
     public function attributeLabels()
@@ -19,7 +19,7 @@ class Goods extends ActiveRecord{
             'stock'=>'库存',
             'is_on_sale'=>'状态',
             'sort'=>'排序',
-            'code'=>'验证码',
+//            'code'=>'验证码',
 
         ];
     }

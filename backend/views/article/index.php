@@ -18,8 +18,11 @@
             <td><?=$list->sort?></td>
             <td><?=date('Y-m-d H:i:s',$list->create_time)?></td>
             <td>
-                <?= \yii\bootstrap\Html::a('修改',['article/edit','id'=>$list->id],['class'=>'btn btn-info'])?>
-                <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-info'])?>
+
+                <?php if(Yii::$app->user->can('article/edit')){
+                 echo \yii\bootstrap\Html::a('修改',['article/edit','id'=>$list->id],['class'=>'btn btn-info']);}?>
+                <?php if(Yii::$app->user->can('article/del')){
+                 echo \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-info']);}?>
             </td>
         </tr>
     <?php endforeach;?>

@@ -7,7 +7,7 @@ class Brand extends ActiveRecord
 {
 
     public $imgFile;
-    public $code;
+//    public $code;
 
     public function attributeLabels()
     {
@@ -17,7 +17,7 @@ class Brand extends ActiveRecord
 //            'logo' => 'LOGO',
             'sort' => '排序',
             'status' => '状态',
-            'code' => '验证码'
+//            'code' => '验证码'
 
         ];
 

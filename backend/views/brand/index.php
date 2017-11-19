@@ -12,8 +12,11 @@
             <td><?=$list->name?></td>
             <td><?=\yii\bootstrap\Html::img($list->logo,['width'=>50])?></td>
             <td>
-                <?= \yii\bootstrap\Html::a('修改',['brand/edit','id'=>$list->id],['class'=>'btn btn-info'])?>
-                <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-info'])?>
+                <?php if(Yii::$app->user->can('brand/edit')){
+                    echo   \yii\bootstrap\Html::a('修改',['brand/edit','id'=>$list->id],['class'=>'btn btn-info']);}?>
+                <?php if(Yii::$app->user->can('brand/del')) {
+                   echo \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-info']); }?>
+
             </td>
         </tr>
     <?php endforeach;?>

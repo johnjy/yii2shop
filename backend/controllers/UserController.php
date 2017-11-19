@@ -10,12 +10,13 @@ use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Request;
+use yii\captcha\CaptchaAction;
 
 class UserController extends Controller{
 
     //登录
     public function actionLogin(){
-        $model=new LoginForm();
+        $model=new \backend\models\LoginForm();
         $requset=\Yii::$app->request;
         if($requset->isPost){
             $model->load($requset->post());
@@ -27,6 +28,7 @@ class UserController extends Controller{
                     $models->last_login_ip=\Yii::$app->request->userIP;
 //                    $models->auth_key=Yii::$app->security->generateRandomString();
                     $models->save(false);
+
                     \Yii::$app->session->setFlash('success','登录成功');
                     return $this->redirect(['user/index']);
                 }
@@ -34,6 +36,7 @@ class UserController extends Controller{
         }
         return $this->render('login',['model'=>$model]);
     }
+
     //注销
     public function actionLogout(){
 //        Yii::$app->user->logout();
@@ -47,7 +50,7 @@ class UserController extends Controller{
         //分页
         $pages=new Pagination();
         $pages->totalCount=User::find()->count();
-        $pages->pageSize=2;
+        $pages->pageSize=4;
         $lists=User::find()->limit($pages->limit)->offset($pages->offset)->all();
         return $this->render('index',['lists'=>$lists,'pages'=>$pages]);
     }

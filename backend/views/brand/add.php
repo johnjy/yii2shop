@@ -68,7 +68,7 @@ JS
 //echo \yii\bootstrap\Html::img($model->logo?$model->logo:false,['id'=>'img','height'=>50]);
 echo $from->field($model,'sort')->textInput();
 echo $from->field($model,'status',['inline'=>1])->radioList([0=>'隐藏',1=>'正常']);
-echo $from->field($model,'code')->widget(\yii\captcha\Captcha::className(),['template'=>
-    '<div class="row"><div class="col-lg-1">{input}</div><div class="col-lg-1">{image}</div></div>']);
+//echo $from->field($model,'code')->widget(\yii\captcha\Captcha::className(),['template'=>
+//    '<div class="row"><div class="col-lg-1">{input}</div><div class="col-lg-1">{image}</div></div>']);
 echo \yii\bootstrap\Html::submitButton('提交',['class'=>'btn btn-info']);
 \yii\bootstrap\ActiveForm::end();

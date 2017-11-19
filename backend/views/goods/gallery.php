@@ -1,5 +1,6 @@
 
-<?= \yii\bootstrap\Html::a('添加图片',['goods/gallery-add','id'=>$id],['class'=>'btn btn-warning'])?>
+<?php if(Yii::$app->user->can('goods/gallery-add')){
+    echo \yii\bootstrap\Html::a('添加图片',['goods/gallery-add','id'=>$id],['class'=>'btn btn-warning']);}?>
 
 <table class="table table-bordered">
     <?php foreach($photoes as $photoe):?>
@@ -7,7 +8,8 @@
 
             <td id="<?=$photoe->id?>"><?=\yii\bootstrap\Html::img($photoe->path)?></td>
             <td>
-                <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger'])?>
+                <?php if(Yii::$app->user->can('goods/gallery-del')){
+                echo \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-danger']);}?>
             </td>
         </tr>
     <?php endforeach;?>

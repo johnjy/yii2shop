@@ -11,8 +11,10 @@
             <td><?=$list->id?></td>
             <td> <?=str_repeat('----',$list->depth).$list->name ?></td>
             <td>
-                <?= \yii\bootstrap\Html::a('修改',['goods-category/edit-category','id'=>$list->id],['class'=>'btn btn-info'])?>
-                <?= \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-info'])?>
+                <?php if(Yii::$app->user->can('goods-category/edit-category')){
+                echo \yii\bootstrap\Html::a('修改',['goods-category/edit-category','id'=>$list->id],['class'=>'btn btn-info']);}?>
+                <?php if(Yii::$app->user->can('goods-category/del-category')){
+                echo \yii\bootstrap\Html::button('删除',['class'=>'dels btn  btn-info']);}?>
             </td>
         </tr>
     <?php endforeach;?>
