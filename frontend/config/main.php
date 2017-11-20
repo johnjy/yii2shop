@@ -10,6 +10,8 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    //设置默认登录地址
+    'defaultRoute' => 'goods/index',
     'controllerNamespace' => 'frontend\controllers',
     'layout'=>false,
     'components' => [

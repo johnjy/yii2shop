@@ -13,6 +13,7 @@ return [
     'bootstrap' => ['log'],
     //设置语言
     'language'=>'zh-CN',
+    //设置默认登录地址
     'defaultRoute' => 'user/login',
     //设置时区
     'timeZone' => 'Asia/Shanghai',
@@ -28,7 +29,7 @@ return [
             'identityClass' => 'backend\models\User',
             'enableAutoLogin' => true,//影响自动登录功能
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-            //设置默认登录地址
+
 
         ],
         'session' => [

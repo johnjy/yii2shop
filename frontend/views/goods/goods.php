@@ -314,9 +314,6 @@
                     <div class="smallpic_wrap">
 
 <!--                        <ul>-->
-<!---->
-<!--                            <li class="cur">-->
-<!--                            </li>-->
 
                             <?=\frontend\models\Goods::getGallery()?>
 
