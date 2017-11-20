@@ -15,7 +15,8 @@ class Goods extends ActiveRecord{
         $url="http://www.adminshop.com";
         foreach($gallery as $key=>$value){
             $html.='<li'.($key==0?'class="cur"':'').'>';//class="zoomThumbActive"
-            $html.='<a '.($key==0?'class="zoomThumbActive"':'').' href="javascript:void(0);" rel="{gallery:\'gal1\', smallimage:\''.str_replace('/','\\',$url.$value->path).'\'}"><img width=54 src="'.$url.$value->path.'"></a></li>';
+            $html.='<a '.($key==0?'class="zoomThumbActive"':'').' href="javascript:void(0);" rel="{gallery:\'gal1\',
+            smallimage:\''.$url.$value->path.'\',largeimage: \''.$url.$value->path.'\'}"><img width=54 src="'.$url.$value->path.'"></a></li>';
 
 
     }   $html.='</ul>';

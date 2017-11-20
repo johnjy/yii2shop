@@ -123,6 +123,7 @@ class GoodsController extends Controller{
         return [
             'upload' => [
                 'class' => 'kucha\ueditor\UEditorAction',
+
             ]
         ];
     }

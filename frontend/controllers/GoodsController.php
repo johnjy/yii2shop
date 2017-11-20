@@ -40,11 +40,26 @@ class GoodsController extends Controller{
             return $this->render('list',['models'=>$models,'pager'=>$pager]);
 
         }
+
         //商品首页
         public function actionIndex(){
-            return $this->render('index');
+            //首页静态化ob缓存
 
+//            ob_start();
+//            ob_get_contents();
+//            file_put_contents();
+
+             $content=$this->render('index');
+            file_put_contents('index.html',$content);
+            return $content;
         }
+
+    //通过ajax获取登录状态
+    public function actionUserStatus(){
+        $isLogin=\Yii::$app->user->isGuest;
+    }
+
+
         //详情页
     public function actionDetail($goods_category_id){
 //        $goods=Goods::find()

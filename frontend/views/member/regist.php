@@ -262,7 +262,7 @@
 
         //点击发送ajax请求数据短信验证码
         var tel=$("#tel").val();
-        $.getJSON('<?=yii\helpers\Url::to(['member/msg'])?>',{tel:tel},function(data){
+        $.get('<?=yii\helpers\Url::to(['member/msg'])?>',{tel:tel},function(data){
             if(data=='success'){
                 alert('短信发送成功');
             }else {

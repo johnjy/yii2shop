@@ -86,8 +86,18 @@ class MemberController extends Controller{
 
     public function actionMsg($tel){
         //短信验证码
+
             $code=rand(1000,9999);
-        //发送短信
+        //发送短信\
+            //判断两次短信发送时间间隔
+        $redis=new \Redis();
+        $redis->connect('127.0.0.1');
+        $redis->get('captcha_'.$tel);
+
+        $result=600-$redis->get('captcha_'.$tel);
+//        if(){
+//
+//        }
         $response = Sms::sendSms(
             "YMC洛水之南", // 短信签名
             "SMS_109480438", // 短信模板编号
