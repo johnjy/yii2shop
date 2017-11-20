@@ -32,6 +32,7 @@
             }
         });
     };
+
     jqzoom = function (el, options) {
         var api = null;
         api = $(el).data("jqzoom");
@@ -103,6 +104,7 @@
                 obj.init();
             },
             init: function () {
+
                 //drag option
                 if (settings.zoomType == 'drag') {
                     $(".zoomPad", el).mousedown(function () {
@@ -174,7 +176,9 @@
                 }
                 thumblist.each(function () {
                     //preloading thumbs
+
                     if (settings.preloadImages) {
+
                         var thumb_options = $.extend({}, eval("(" + $.trim($(this).attr('rel')) + ")"));
                         thumb_preload[i] = new Image();
                         thumb_preload[i].src = thumb_options.largeimage;

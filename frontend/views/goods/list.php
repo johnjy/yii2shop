@@ -434,7 +434,8 @@
         <!-- 商品列表 start-->
         <div class="goodslist mt10">
             <ul>
-                <?php foreach($goods as $product):?>
+                <?php foreach($models as $product):?>
+
                 <li>
                     <dl>
                         <dt><a href="<?=yii\helpers\Url::to(['goods/goods','goods_id'=>$product->id])?>"><img src="<?='http://www.adminshop.com/'.$product->logo?>" alt="" /></a></dt>

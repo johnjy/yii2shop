@@ -13,6 +13,7 @@ return [
     'bootstrap' => ['log'],
     //设置语言
     'language'=>'zh-CN',
+    'defaultRoute' => 'user/login',
     //设置时区
     'timeZone' => 'Asia/Shanghai',
     'modules' => [],
@@ -20,12 +21,15 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
+
         'user' => [
 //            'identityClass' => 'common\models\User',
             'loginUrl'=>['user/login'],
             'identityClass' => 'backend\models\User',
             'enableAutoLogin' => true,//影响自动登录功能
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            //设置默认登录地址
+
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend

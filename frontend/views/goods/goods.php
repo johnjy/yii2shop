@@ -312,21 +312,19 @@
                     <a href="javascript:;" id="backward" class="off"></a>
                     <a href="javascript:;" id="forward" class="on"></a>
                     <div class="smallpic_wrap">
-                        <?=\frontend\models\Goods::getGallery()?>
+
 <!--                        <ul>-->
+<!---->
 <!--                            <li class="cur">-->
-<!--                                <a class="zoomThumbActive" href="javascript:void(0);" rel="{gallery: 'gal1', smallimage: '/images/preview_m1.jpg',largeimage: '/images/preview_l1.jpg'}"><img src="/images/preview_s1.jpg"></a>-->
 <!--                            </li>-->
+
+                            <?=\frontend\models\Goods::getGallery()?>
+
 <!--                            <li>-->
 <!--                                <a href="javascript:void(0);" rel="{gallery: 'gal1', smallimage: '/images/preview_m2.jpg',largeimage: '/images/preview_l2.jpg'}"><img src="/images/preview_s2.jpg"></a>-->
 <!--                            </li>-->
-<!---->
-<!--                            <li>-->
-<!--                                <a href="javascript:void(0);"-->
-<!--                                   rel="{gallery: 'gal1', smallimage: '/images/preview_m3.jpg',largeimage: '/images/preview_l3.jpg'}">-->
-<!--                                    <img src="/images/preview_s3.jpg"></a>-->
-<!--                            </li>-->
-<!--                            <li>-->
+
+<!--<!--                            <--<li>-->
 <!--                                <a href="javascript:void(0);"-->
 <!--                                   rel="{gallery: 'gal1', smallimage: '/images/preview_m4.jpg',largeimage: '/images/preview_l4.jpg'}">-->
 <!--                                    <img src="/images/preview_s4.jpg"></a>-->
