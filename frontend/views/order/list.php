@@ -238,7 +238,11 @@
                 <?php foreach($orders as $order):?>
                 <tr>
                     <td><a href=""><?=$order->id?></a></td>
-                    <td><a href=""><img src="<?='http://www.adminshop.com'.$order_goods[$order->id]?>" alt="" /></a></td>
+                    <td>
+
+                        <a href=""><img src="<?='http://www.adminshop.com'.$order_goods[$order->id]?>" alt="" /></a>
+
+                    </td>
                     <td><?=$order->name?></td>
                     <td><?='￥'.$order->total.'&emsp;'.$order->delivery_name?> </td>
                     <td><?=date("Y-m-d H:i:s",$order->create_time)?></td>

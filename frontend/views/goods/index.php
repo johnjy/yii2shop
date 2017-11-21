@@ -201,7 +201,7 @@
 
     <!-- 快报区域 start-->
     <div class="coll_right fl ml10">
-        <div class="ad"><a href=""><img src="images/ad.jpg" alt="" /></a></div>
+        <div class="ad"><a href=""><img src="/images/ad.jpg" alt="" /></a></div>
 
         <div class="news mt10">
             <h2><a href="">更多快报&nbsp;></a><strong>网站快报</strong></h2>
@@ -343,7 +343,7 @@
                     </li>
                     <li>
                         <dl>
-                            <dt><a href=""><img src="images/crazy5.jpg" alt="" /></a></dt>
+                            <dt><a href=""><img src="/images/crazy5.jpg" alt="" /></a></dt>
                             <dd><a href="">好声音耳机</a></dd>
                             <dd><span>售价：</span><strong> ￥199.00</strong></dd>
                         </dl>

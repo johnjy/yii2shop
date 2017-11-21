@@ -123,7 +123,6 @@ class GoodsController extends Controller{
                     $carts = [];
                 }
 
-
                 //登录操作数据库
                 $member_id=\Yii::$app->user->identity->id;
 //
@@ -132,9 +131,9 @@ class GoodsController extends Controller{
 //                var_dump($cart[0]->goods_id);die;
 
                 $goods=Goods::find()->where(['in','id',array_keys($carts)])->all();
-//                var_dump($carts);die;
+
             }
-//                var_dump($goods);die;
+
                return $this->render('cart',['goods'=>$goods,'carts'=>$carts]);
             }
     //添加购物车
@@ -215,11 +214,14 @@ class GoodsController extends Controller{
                     //保存到数据库
 //
                     $model=new Cart();
-                    $model->member_id=\Yii::$app->user->identity->id;
-                    $model->goods_id=$goods_id;
-                    $model->amount=$amount;
+//                    $model->member_id=\Yii::$app->user->identity->id;
+//                    $model->goods_id=$goods_id;
+//                    $model->amount=$amount;
+//                    $id=\Yii::$app->db->getLastInsertID();
+//                    var_dump($id);die;
+                    $model=Cart::find()->where(['goods_id'=>$goods_id])->one();
                     if($model->validate()){
-                        $model->save();
+                        $model->updateAll(['amount'=>$amount]);
                     }
                 }
                 break;

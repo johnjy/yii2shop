@@ -10,39 +10,30 @@ use yii\web\Controller;
 class MemberController extends Controller{
     //用户登录
     public function actionLogin(){
-//        $model=new \frontend\models\LoginForm();
-        $model=new LoginForm();
-
         $request=\Yii::$app->request;
-
-        if($request->isPost){
-            $model->load($request->post(),'');
-
-           if($model->validate()){
-//
-
-               if($model->login()){
-
-                   $user=new Member();
+        $model=new LoginForm();
+        if(!\Yii::$app->user->isGuest){
+            return $this->goHome();
+        }
+        if($model->load($request->post(),'') && $model->login()){
+            //用户登录保存登录ip 返回到登录前的页面
+                    $user=new Member();
                    $user=Member::findOne(['username'=>$model->username]);
                    $ip=\Yii::$app->request->userIP;
                    $user->id=\Yii::$app->user->id;
                    $user->update($user->last_login_ip,[$ip]);
-//                   var_dump($model);die;
-//                   echo 1; die;
-                   return $this->redirect(['goods/index']);
-               }
 
-           }
+            return $this->goBack();
+        }else{
+            \Yii::$app->user->setReturnUrl(\Yii::$app->request->referrer);
+            return $this->render('login');
         }
 
-
-        return $this->render('login',['model'=>$model]);
     }
     //zhuxiao
         public function actionLogout(){
         \Yii::$app->user->logout();
-        return $this->redirect(['member/login']);
+        return $this->redirect(['goods/index']);
     }
 
     //用户注册
@@ -93,11 +84,11 @@ class MemberController extends Controller{
         $redis=new \Redis();
         $redis->connect('127.0.0.1');
         $redis->get('captcha_'.$tel);
-
+        //一分钟只能发送一次
         $result=600-$redis->get('captcha_'.$tel);
-//        if(){
-//
-//        }
+        if($result<60){
+            echo '两次短信发送时间小于60秒,请'.$result.'秒后再试';exit;
+        }
         $response = Sms::sendSms(
             "YMC洛水之南", // 短信签名
             "SMS_109480438", // 短信模板编号

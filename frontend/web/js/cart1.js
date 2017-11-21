@@ -50,7 +50,7 @@ $(function(){
 		$(this).parent().parent().find(".col5 span").text(subtotal.toFixed(2));
 		//使用ajax请求修改后台购物车数据
 		var goods_id = $(this).closest('tr').attr('data-id');
-		change(goods_id,$(amount).val());
+		change(goods_id,$(this).val());
 		//总计金额
 		totals();
 

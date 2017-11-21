@@ -313,20 +313,9 @@
                     <a href="javascript:;" id="forward" class="on"></a>
                     <div class="smallpic_wrap">
 
-<!--                        <ul>-->
 
                             <?=\frontend\models\Goods::getGallery()?>
 
-<!--                            <li>-->
-<!--                                <a href="javascript:void(0);" rel="{gallery: 'gal1', smallimage: '/images/preview_m2.jpg',largeimage: '/images/preview_l2.jpg'}"><img src="/images/preview_s2.jpg"></a>-->
-<!--                            </li>-->
-
-<!--<!--                            <--<li>-->
-<!--                                <a href="javascript:void(0);"-->
-<!--                                   rel="{gallery: 'gal1', smallimage: '/images/preview_m4.jpg',largeimage: '/images/preview_l4.jpg'}">-->
-<!--                                    <img src="/images/preview_s4.jpg"></a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
                     </div>
 
                 </div>
