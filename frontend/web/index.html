@@ -29,8 +29,8 @@
             <ul>
                 <li>您好，欢迎来到京西！
 
-                                        aaa[<a href="/member/logout">注销</a>]
-                                        
+                                                            [<a href="/member/login">登录</a>] [<a href="/member/regist">免费注册</a>] </li>
+                     
                 <li class="line">|</li>
                 <li>我的订单</li>
                 <li class="line">|</li>
@@ -53,8 +53,8 @@
         <div class="search fl">
             <div class="search_form">
                 <div class="form_left fl"></div>
-                <form action="" name="serarch" method="get" class="fl">
-                    <input type="text" class="txt" value="请输入商品关键字" /><input type="submit" class="btn" value="搜索" />
+                <form action="/goods/search" method="get" class="fl">
+                    <input type="text" name="keywords" class="txt" value="请输入商品关键字" /><input type="submit" class="btn" value="搜索" />
                 </form>
                 <div class="form_right fl"></div>
             </div>
@@ -521,6 +521,7 @@
             </h2>
             <div class="goodslist_wrap">
                 <div>
+
                     <ul>
                         <li>
                             <dl>

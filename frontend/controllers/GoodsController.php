@@ -5,6 +5,7 @@ use backend\models\Goods;
 use backend\models\GoodsCategory;
 use backend\models\GoodsGallery;
 use frontend\models\Cart;
+use frontend\models\SphinxClient;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -268,4 +269,55 @@ class GoodsController extends Controller{
 //        var_dump($gallery);die;
         return $this->render('goods',['goods'=>$goods,'gallery'=>$gallery]);
     }
+
+    //分词搜索
+
+    public function actionSearch(){
+        $requset=\Yii::$app->request;
+
+        $search=$requset->get();
+        if($search['keywords'] =='请输入商品关键字'){
+            $this->redirect(['goods/index']);
+        }
+
+        $cl = new SphinxClient();
+        $cl->SetServer ( '127.0.0.1', 9312);//设置sphinx的searchd服务
+
+        $cl->SetConnectTimeout ( 10 );//超时
+        $cl->SetArrayResult ( true );//结果以数组形式返回
+// $cl->SetMatchMode ( SPH_MATCH_ANY);
+        $cl->SetMatchMode ( SPH_MATCH_EXTENDED2);//设置匹配模式
+        $cl->SetLimits(0, 1000);//设置分页
+
+        //接收搜索数据
+
+        $requset=\Yii::$app->request;
+
+        $search=$requset->get();
+
+
+           $keyword=$search['keywords'];
+
+            $info = $keyword;//搜索信息
+            $res = $cl->Query($info, 'goods');//shopstore_search
+//print_r($cl);
+
+            if(isset($res['matches'])){
+                //查询到数据
+                $ids=ArrayHelper::map($res['matches'],'id','id');
+                $models=Goods::find()->where(['in','id',$ids])->all();
+
+//                var_dump($models);die;
+                return $this->render('search',['models'=>$models]);
+            }else{
+                //没查到返回首页
+                return $this->redirect(['goods/index']);
+            }
+
+
+        }
+
+
+
+
 }
