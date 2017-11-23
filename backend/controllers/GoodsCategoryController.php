@@ -83,7 +83,7 @@ class GoodsCategoryController extends Controller{
 //        $del->isLeaf();
         $child=GoodsCategory::findAll(['parent_id'=>$id]);
         if(empty($child)){
-           $del->delete();
+           $del->deleteWithChildren();
             return 1;
         }
 

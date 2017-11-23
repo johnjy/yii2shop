@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use backend\models\Goods;
 use backend\models\GoodsCategory;
 use backend\models\GoodsGallery;
+use backend\models\GoodsIntro;
 use frontend\models\Cart;
 use frontend\models\SphinxClient;
 use yii\data\Pagination;
@@ -266,8 +267,10 @@ class GoodsController extends Controller{
 
         $gallery=GoodsGallery::findAll(['goods_id'=>$goods_id]);
         $gallery=ArrayHelper::map($gallery,'path','path');
+        //商品介绍
+        $goods_intro=GoodsIntro::findOne(['goods_id'=>$goods_id]);
 //        var_dump($gallery);die;
-        return $this->render('goods',['goods'=>$goods,'gallery'=>$gallery]);
+        return $this->render('goods',['goods'=>$goods,'gallery'=>$gallery,'goods_intro'=>$goods_intro]);
     }
 
     //分词搜索

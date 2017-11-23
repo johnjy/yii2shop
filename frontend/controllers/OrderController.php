@@ -26,6 +26,7 @@ class OrderController extends Controller{
         $goods=Goods::find()->where(['in','id',array_keys($cart)])->all();
         return $this->render('index',['address'=>$address,'carts'=>$cart,'goods'=>$goods]);
     }
+
     //订单处理
     public function actionOrder(){
 //            echo 1;die;

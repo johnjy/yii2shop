@@ -107,8 +107,8 @@
                     <div class="uclist mt10">
                         <ul class="list1 fl">
                             <li><a href="">用户信息></a></li>
-                            <li><a href="">我的订单></a></li>
-                            <li><a href="">收货地址></a></li>
+                            <li><a href="<?=yii\helpers\Url::to(['goods/cart'])?>">我的订单></a></li>
+                            <li><a href="<?=yii\helpers\Url::to(['address/list'])?>">收货地址></a></li>
                             <li><a href="">我的收藏></a></li>
                         </ul>
 
@@ -394,23 +394,7 @@
 
                     <div class="desc mt10">
                         <!-- 此处的内容 一般是通过在线编辑器添加保存到数据库，然后直接从数据库中读出 -->
-                        <img src="/images/desc1.jpg" alt="" />
-                        <p style="height:10px;"></p>
-                        <img src="/images/desc2.jpg" alt="" />
-                        <p style="height:10px;"></p>
-                        <img src="/images/desc3.jpg" alt="" />
-                        <p style="height:10px;"></p>
-                        <img src="/images/desc4.jpg" alt="" />
-                        <p style="height:10px;"></p>
-                        <img src="/images/desc5.jpg" alt="" />
-                        <p style="height:10px;"></p>
-                        <img src="/images/desc6.jpg" alt="" />
-                        <p style="height:10px;"></p>
-                        <img src="/images/desc7.jpg" alt="" />
-                        <p style="height:10px;"></p>
-                        <img src="/images/desc8.jpg" alt="" />
-                        <p style="height:10px;"></p>
-                        <img src="/images/desc9.jpg" alt="" />
+                    <?=$goods_intro->content?>
                     </div>
                 </div>
                 <!-- 商品介绍 end -->
