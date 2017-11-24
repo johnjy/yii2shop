@@ -124,7 +124,7 @@ class GoodsController extends Controller{
             'upload' => [
                 'class' => 'kucha\ueditor\UEditorAction',
                 'config' => [
-                    "imageUrlPrefix"  => "http://www.adminshop.com",//图片访问路径前缀
+                    "imageUrlPrefix"  => "http://www.adminwaitmeby.top",//图片访问路径前缀
                     "imagePathFormat" => "/upload/{time}{rand:6}", //上传保存路径
                 "imageRoot" => \Yii::getAlias("@webroot"),
             ],

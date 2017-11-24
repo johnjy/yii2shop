@@ -6,6 +6,7 @@ namespace frontend\controllers;
 use backend\models\GoodsCategory;
 use frontend\models\LoginForm;
 use frontend\models\Member;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
 use frontend\models\Address;
@@ -265,4 +266,56 @@ class ApiController extends Controller{
     }
 
     //获取某分类的所有子分类
+    public function actionGoodsCategoryChild(){
+        //返回结果
+        $result=[
+            'error'=>null,
+            'msg'=>'',
+            'data'=>[],
+        ];
+        //得到分类的id
+        $requset=\Yii::$app->request;
+        $id=$requset->post('id');
+        $category = GoodsCategory::find()->where(['parent_id'=>$id])->all();
+
+        if($category){
+                $result['data']=$category;
+        }else{
+            $result['error']=1;
+            $result['msg']='查询失败';
+        }
+        return $result;
+    }
+    //获取某分类的父分类
+    public function actionGoodsCategoryParent(){
+        //返回结果
+        $result=[
+            'error'=>null,
+            'msg'=>'',
+            'data'=>[],
+        ];
+        //得到分类的id
+        $requset=\Yii::$app->request;
+        $id=$requset->post('id');
+
+        $category = GoodsCategory::find()->where(['id'=>$id])->one();
+
+
+        $categoryParent=GoodsCategory::find()->where(['id'=>$category->parent_id])->one();
+
+        if($categoryParent){
+            $result['data']=$categoryParent;
+        }else{
+            $result['error']=1;
+            $result['msg']='查询失败';
+        }
+        return $result;
+    }
+
+    //商品管理接口
+        //获取某分类下面的所有商品（不考虑分页）
+    public function actionGoods(){
+        
+    }
+        //获取某品牌下面的所有商品（不考虑分页）
 }
